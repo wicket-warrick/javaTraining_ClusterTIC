@@ -18,7 +18,7 @@ public class CalculadoraPrestamo {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        double cost, tipo, limit;
+        double cost, tipo, limit, monthlyShare, totalCost, distribution;
         int period;
 
         System.out.print("Introdude importe do prestamos: ");
@@ -37,9 +37,25 @@ public class CalculadoraPrestamo {
         tipo de interese mensual
          */
         tipo /= 1200;
-    
 
+        totalCost = cost * tipo;
+        distribution = 1 - Math.pow(1 + tipo, -period);
+        monthlyShare = totalCost / distribution;
+        System.out.println(monthlyShare);
+        if (monthlyShare > limit) {
+            System.out.println("La cuantía mensal excede el límite mensual: " + monthlyShare);
+            System.out.println("Procederemos a calcular el número de meses , teniendo como couta el límite impuesto");
 
+            double limitA = Math.log(1 - (cost * tipo / limit));
+            double limitB = Math.log(1 + tipo);
+
+            double yearsShare = -limitA / limitB;
+
+            System.out.println("Para devolver la iintegridad del prestamo más los intereses, necesitará: " + yearsShare  + " meses");
+
+        } else {
+            System.out.println("La cuantía mensual a pagar por el préstamos es de: " + monthlyShare);
+        }
 
     }
 
