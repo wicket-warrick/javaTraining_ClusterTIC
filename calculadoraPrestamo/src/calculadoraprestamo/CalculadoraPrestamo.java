@@ -55,6 +55,8 @@ public class CalculadoraPrestamo {
 
         } else {
             System.out.println("La cuantía mensual a pagar por el préstamos es de: " + monthlyShare);
+            System.out.println("La cuantía mensual a pagar por el préstamos es de: " + monthlyShare);
+            
         }
 
     }
