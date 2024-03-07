@@ -10,10 +10,12 @@ import java.math.BigDecimal;
 public class CobroPagos {
     /* Definición de estructuras de datos*/
     /*Opcións a executar polo programa*/
-    enum Opcion{COBRO, PAGO,MOVIMIENTOS,SALIR};
+    enum Opcion{COBRO, PAGO,MOVIMIENTOS,SALDO,SALIR};
     
     /*Opcións tipos de movementos*/
     enum TipoMovimiento{CARGO,ABONO};
+
+    BigDecimal saldo;
     
     /*Dato/obxecto que guarda toda a información*/
     
@@ -22,6 +24,8 @@ public class CobroPagos {
         TipoMovimiento tipo;
         String concepto;
         BigDecimal importe;
+        
+        BigDecimal saldo;
         
         public String toString(){
             return tipo.name() + " el "+fechaMovimiento+" por"+importe+ " euros. '" +concepto+"'";
@@ -36,6 +40,7 @@ neste caso, son do tipo class Movimiento
 */
     Movimiento[] movimientos=new Movimiento[MAX_MOVIMIENTOS];
     int numMovimientos=0;
+   
 
 /*Implementación de métodos que darán funcionalidade á aplicación*/
 
@@ -53,6 +58,9 @@ neste caso, son do tipo class Movimiento
             break;
         case MOVIMIENTOS:
             listaMovimientos();
+            break;
+        case SALDO:
+            getInitSaldo();
             break;
             
     }}while(opcion !=Opcion.SALIR);
@@ -83,9 +91,32 @@ neste caso, son do tipo class Movimiento
         System.out.print("Importe: ");
         movimientos[numMovimientos].importe=new BigDecimal(scanner.next());
         System.out.println("\nMovimiento anotado correctamente");
+        movimientos[numMovimientos].saldo=getSaldo();
         numMovimientos++;
     }
     
+    void getInitSaldo(){
+        Scanner scanner=new Scanner(System.in);
+        if(saldo==null){
+            System.out.println("Aínda non se introduciu o saldo da conta");
+            System.out.println("Introducir saldo de cuenta: ");
+            saldo=new BigDecimal(scanner.next());
+            System.out.println("Saldo actual: "+saldo);
+        }else{System.out.println("Xa introduciches o saldo da conta: "+saldo+" euros. Non se pode modificar.");
+        }
+        
+    }
+    
+    BigDecimal getSaldo(TipoMovimiento tipo, BigDecimal importe){
+        
+        if(saldo==null){
+            System.out.println("Aínda non se introduciu o saldo da conta");
+            System.out.println("Introduce o saldo inicial da conta: ");
+        }else if(numMovimientos==0){
+            saldo=
+        }
+        
+    }
     void listaMovimientos(){
         System.out.println();
         for (int i=0;i<numMovimientos;i++){
